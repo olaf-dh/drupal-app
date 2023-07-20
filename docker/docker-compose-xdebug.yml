@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  ## Read instructions at https://wodby.com/docs/stacks/php/local/#xdebug
+  app:
+    environment:
+      - PHP_XDEBUG=1
+      - PHP_XDEBUG_DEFAULT_ENABLE=1
+      - PHP_XDEBUG_REMOTE_CONNECT_BACK=0
+      - PHP_IDE_CONFIG=serverName=PHPSTORM
+      - PHP_XDEBUG_IDEKEY="PHPSTORM"
+      - PHP_XDEBUG_REMOTE_HOST=host.docker.internal # Docker 18.03+ Mac/Win
+      #      - PHP_XDEBUG_MODE=coverage  # uncomment if you would like to get test coverage reports
+      #      - PHP_XDEBUG_REMOTE_HOST=172.17.0.1 # Linux
+      #      - PHP_XDEBUG_REMOTE_HOST=10.254.254.254 # macOS, Docker < 18.03
+      #      - PHP_XDEBUG_REMOTE_HOST=10.0.75.1 # Windows, Docker < 18.03
+      #      - PHP_XDEBUG_REMOTE_LOG=/tmp/php-xdebug.log
+      #      - APP_ENV=prod # to run locally in prod mode for api
+      #      - APP_DEBUG=false # to run locally in prod mode for api

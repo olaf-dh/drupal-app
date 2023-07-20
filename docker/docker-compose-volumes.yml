@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  app:
+    volumes:
+      - ../app:/var/www/html
+      - ../app/vendor:/opt/drupal/vendor
+      - ../app/composer.json:/opt/drupal/composer.json
+      - ../app/composer.lock:/opt/drupal/composer.lock

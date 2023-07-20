@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  app:
+    volumes:
+      - nfs_code:/var/www/app:delegated
+
+volumes:
+  nfs_code:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":${MOUNT_FOLDER}"
