@@ -6,7 +6,11 @@ composer-install: ## Composer install
 	${DC} exec app /bin/sh -c "composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader"
 
 project-init: ## Initialize existing Drupal project
+	make build
+	make up
+	make exec app /bin/sh -c "composer update"
 	make import-db
+	make import-conf
 
 composer-drush: ## Install drush
 	${DC} exec app /bin/sh -c "composer require drush/drush"
@@ -19,8 +23,12 @@ export-db: ## create a new db-dump.
 import-db: ## import a dump into your database
 	${DC} exec -T database /bin/sh -c 'mysql -udrupal_api -pdrupal_api drupal_api' < data/sql/db.sql
 
+# drush - config export and import
 export-conf: ## Export config file.
 	make exec app "vendor/bin/drush cex"
+
+import-conf: ## Import config from existing Drupal installation.
+	make exec app "vendor/bin/drush cim"
 
 # caches
 cc: ## Clear and rebuild cache.
