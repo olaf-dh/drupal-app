@@ -1,18 +1,30 @@
 # composer
-symfony-install: ## Install a symfony-skeleton
-	${DC} exec app /bin/sh -c "composer create-project symfony/skeleton app"
+drupal-install: ## Install a Drupal project
+	${DC} exec app /bin/sh -c "composer create-project drupal/recommended-project app"
 
 composer-install: ## Composer install
 	${DC} exec app /bin/sh -c "composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader"
 
+project-init: ## Initialize existing Drupal project
+	make import-db
+
+composer-drush: ## Install drush
+	${DC} exec app /bin/sh -c "composer require drush/drush"
+
 # database
 export-db: ## create a new db-dump.
-	${DC} exec database /bin/sh -c 'mysqldump --all-databases -uroot -proot' > data/sql/db.sql
+	mkdir -p "data/sql"
+	${DC} exec database /bin/sh -c 'mysqldump --all-databases -udrupal_api -pdrupal_api' > data/sql/db.sql
 
+import-db: ## import a dump into your database
+	${DC} exec -T database /bin/sh -c 'mysql -udrupal_api -pdrupal_api drupal_api' < data/sql/db.sql
+
+export-conf: ## Export config file.
+	make exec app "vendor/bin/drush cex"
 
 # caches
-cc: ## Clear Symfony cache.
-	make exec app "bin/console cache:clear"
+cc: ## Clear and rebuild cache.
+	make exec app "vendor/bin/drush cr"
 
 ###
 ### Code Quality

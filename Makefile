@@ -163,7 +163,7 @@ exec: ## Run a command inside a container use: `make exec <service-name> "<comma
 inspect: ## Get service configuration use: `make inspect [<service-name>]`.
 	docker inspect ${COMPOSE_FILES} ps -q ${ARGS}
 
-bash: ## Open a shell inside a running container use: `make cli <service-name>` or `make ssh <service-name>`.
+bash: ## Open a shell inside a running container use: `make bash <service-name>`.
 	${DC} exec ${ARG_1} bash -l
 
 ##

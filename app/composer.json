@@ -21,7 +21,8 @@
         "drupal/core-project-message": "^10.1",
         "drupal/core-recommended": "^10.1",
         "drupal/paragraphs": "^1.15",
-        "drupal/webprofiler": "^10.1"
+        "drupal/webprofiler": "^10.1",
+        "drush/drush": "^12.1"
     },
     "conflict": {
         "drupal/drupal": "*"
