@@ -9,6 +9,7 @@
 # Import config
 -include .env
 -include docker/.env
+-include docker/.env.local
 export
 
 # This is a clever trick to mimick --help like functionality.

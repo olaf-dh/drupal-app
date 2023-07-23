@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: ${COMPOSE_PROJECT_NAME}_app
+    build:
+      context: php
+    depends_on:
+      - database
+
+  database:
+    container_name: ${COMPOSE_PROJECT_NAME}_database
+    image: mariadb:10.5.12
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
