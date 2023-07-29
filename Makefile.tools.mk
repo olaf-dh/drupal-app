@@ -1,6 +1,7 @@
 # composer
-drupal-install: ## Install a Drupal project
-	${DC} exec app /bin/sh -c "composer create-project drupal/recommended-project app"
+drupal-install: ## Install a new Drupal project
+	rm -rf app
+	composer create-project drupal/recommended-project app
 
 composer-install: ## Composer install
 	${DC} exec app /bin/sh -c "composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader"
@@ -8,7 +9,7 @@ composer-install: ## Composer install
 project-init: ## Initialize existing Drupal project
 	make build
 	make up
-	make exec app /bin/sh -c "composer update"
+	make exec app "composer update"
 	make import-db
 	make import-conf
 

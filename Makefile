@@ -8,6 +8,7 @@
 # Ex. `DATABASE_USER`, the database user of your environment.
 # Import config
 -include .env
+-include .env.local
 -include docker/.env
 -include docker/.env.local
 export
@@ -54,7 +55,14 @@ ARG_REST = $(wordlist 2, 100, ${ARGS})
 
 # We use several docker-compose files to differiate between functionalities and OS.
 # Custom logic can further be added here in case necessary.
-COMPOSE_FILES = -f docker/docker-compose.yml
+
+# Prepare for a new Drupal installation if `DRUPAL=TRUE` is set in the `.env.local`
+ifeq ($(DRUPAL),TRUE)
+	COMPOSE_FILES = -f docker/docker-compose.new.yml
+else
+	COMPOSE_FILES = -f docker/docker-compose.yml
+endif
+
 COMPOSE_FILES += -f docker/docker-compose.override.yml
 
 # Add Xdebug if `XDEBUG=TRUE` is set in the `.env.local`.
