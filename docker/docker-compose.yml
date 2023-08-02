@@ -12,8 +12,8 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_database
     image: mariadb:10.5.12
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
     volumes:
       - mysql-data:/var/lib/mysql
 
